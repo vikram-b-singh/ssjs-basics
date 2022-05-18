@@ -1,0 +1,162 @@
+<!-- SSJS - Server - Side JavaScript
+Server - side JavaScript interacts with Marketing Cloud via the Platform class and the Core library. -->
+
+
+//Declaring a Server-Side JavaScript Block
+
+< script runat = server >
+    Platform.Load("Core", "1");
+[Insert code Here]
+</script >
+
+
+    All functions native to JavaScript, such as arrays, math functions, the EVAL function, and try catch blocks work with server - side JavaScript.So the syntax is similar.
+
+//Declaring variables
+var a = 1;                                         //number
+var b = "1";                                       //string
+var c = true;                                      //boolean
+var d = { "firstName": "Jaya", "lastName": "Deep" };   //objects
+
+//Declaring arrays
+var array = [];
+array.push("first element");
+array.push("second element");
+Write(array[1]);  //output:- second element
+array.pop();
+Write(array[0]);  //output:- second element
+
+//for loop 
+for (var i = 0; i < array.length; i++) {
+    Write(i + ":");                     // Returns the current iteration
+    Write(array[i] + '<br/><br/>');     // Returns the value of current element
+};
+
+//if-else block
+if (condition1) {
+    //  block of code to be executed if condition1 is true
+} else if (condition2) {
+    //  block of code to be executed if the condition1 is false and condition2 is true
+} else {
+    //  block of code to be executed if the condition1 is false and condition2 is false
+}
+
+//switch case
+switch (expression) {
+    case x:
+        // code block
+        break;
+    case y:
+        // code block
+        break;
+    default:
+    // code block
+}
+
+
+//error handling
+try {
+    // Risky code
+} catch (error) {
+    // Code that will be executed if the risky code crashes and catches the error.
+}
+
+
+//using debug variable.When ur code is ready for production just alter debug variable to skip all the unwanted write statements etc.
+<script runat="server">
+    Platform.Load('Core','1');
+    var debugging = true;
+
+    var response = HTTP.Get('https://www.google.co.in/');
+
+    if (debugging) {
+        Write('Response from example.com: ' + Stringify(response) + '<br>');
+    }
+</script>
+
+
+
+//functions
+<script runat="server">
+Platform.Load('Core','1');
+function myFunction(p1, p2) {
+    return p1 * p2;   // The function returns the product of p1 and p2
+}
+Write(myFunction(2,3));
+
+</script>
+
+
+//string methods
+<script runat="server">
+Platform.Load('Core','1');
+var str = "Apple, Banana";
+var part1 = str.slice(0, 5);      //slice(start, end)
+Write(part);
+
+var text2 = text1.toUpperCase();
+Write(text2);
+
+Write(Format(Now(),"MM/dd/yyyy"));     
+Write(Format(55, "C2"));                          //output:$55.00
+Write(IsPhoneNumber("5555551212s"));              //output:false
+Write(IsEmailAddress("acruz@example.com"));       //output:true
+
+var myDataObject={dhd:"dfd"};  
+Write(Stringify(myDataObject));         //stringifies the object.
+</script>
+
+
+//parsing json
+<script runat="server">
+Platform.Load('Core','1');
+     var str = '{ "prop1": "propVal" }';
+     var obj = Platform.Function.ParseJSON(str);
+     var val = obj.prop1;
+     Write(val);
+</script>
+
+
+//DATETIME Functions
+var currentTime = Now();
+Write(currentTime);
+
+
+// writing ssjs variable in html
+<script runat="server">
+Platform.Load('Core', '1');
+var deCustKey = Request.GetFormField('deCustKey');
+</script>
+
+deCustKey is: <ctrl:var name=deCustKey/><br>
+
+
+<!-- reading ampscript variables in ssjs -->
+
+%%[
+
+var @firstName
+set @firstName = AttributeValue("firstName") /* value from attribute or DE column in send context */
+set @firstName = "Leon" /* or a literal value */
+
+]%%
+<script runat="server">
+Platform.Load("core","1");
+var firstName = Variable.GetValue("@firstName");
+Write("<br>firstName: " + firstName);
+</script>
+
+<!-- writing ssjs value to ampscript  -->
+  
+<script runat="server">
+Platform.Load("core","1.1.5");
+var firstName = Attribute.GetValue("FirstName"); /* value from attribute or DE column in send context */
+firstName = "Lily"; /* or a literal value */
+Variable.SetValue("@firstName", firstName);
+</script>
+firstName: %%=v(@firstName)=%%  
+  
+  
+  
+
+
